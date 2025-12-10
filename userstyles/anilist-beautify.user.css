@@ -52,6 +52,10 @@
         left: -220px;
         top: -80px;
     }
+    .nav-unscoped.transparent {
+        backdrop-filter: blur(5px);
+    }
+    
     .media-preview-card.small .cover .image-overlay div .plus-progress {
         backdrop-filter: blur(3px);
     }
