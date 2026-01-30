@@ -6,6 +6,7 @@
 // @author       whoswhip
 // @match        https://mangadex.org/titles*
 // @match        https://mangadex.org/list/*
+// @match        https://mangadex.org/author/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=mangadex.org
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/whoswhip/usertweaks/refs/heads/main/userscripts/mangadex.org-blur-nsfw.user.js
