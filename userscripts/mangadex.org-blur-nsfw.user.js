@@ -4,6 +4,7 @@
 // @version      1.0.1
 // @description  Applies a blur filter to manga covers tagged as NSFW on MangaDex, with hover to unblur effect.
 // @author       whoswhip
+// @match        https://mangadex.org/
 // @match        https://mangadex.org/titles*
 // @match        https://mangadex.org/list/*
 // @match        https://mangadex.org/author/*
