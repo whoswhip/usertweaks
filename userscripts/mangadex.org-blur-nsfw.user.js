@@ -34,17 +34,24 @@
     return nsfwTags.hasOwnProperty(tagText);
   }
 
-  function addHoverEffect(mangaCard, img, blurLevel, unblurLength) {
-    if (mangaCard._hasListeners) return;
+  function addHoverEffect(
+    parent,
+img,
+blurLevel,
+unblurLength,
+    positionElement,
+) {
+    if (parent._hasListeners) return;
 
-    mangaCard._blurLevel = blurLevel;
-    mangaCard._unblurLength = unblurLength;
-    mangaCard._isUnblurred = false;
+    parent._blurLevel = blurLevel;
+    parent._unblurLength = unblurLength;
+    parent._isUnblurred = false;
 
-    let cover = mangaCard.getElementsByClassName("manga-card-cover")[0];
-    cover.style.position = "relative";
+    let cover =
+      positionElement || parent.getElementsByClassName("manga-card-cover")[0];
+    if (cover) cover.style.position = "relative";
 
-    mangaCard.addEventListener("mouseenter", function () {
+    parent.addEventListener("mouseenter", function () {
       if (!this._isUnblurred) {
         img.style.transition = `filter ${this._unblurLength}ms ease`;
         img.style.filter = "none";
@@ -52,7 +59,7 @@
       }
     });
 
-    mangaCard.addEventListener("mouseleave", function () {
+    parent.addEventListener("mouseleave", function () {
       if (this._isUnblurred) {
         img.style.transition = "";
         img.style.filter = `blur(${this._blurLevel})`;
@@ -60,7 +67,7 @@
       }
     });
 
-    mangaCard._hasListeners = true;
+    parent._hasListeners = true;
   }
 
   function createOverlay(parent, emoji) {
@@ -103,12 +110,72 @@
     }
   }
 
+  function processMangaSwiperSlide(mangaSwiperSlide) {
+    let link = mangaSwiperSlide.getElementsByTagName("a")[0];
+    if (!link) return;
+
+    let banner = link.getElementsByTagName("img")[0];
+    if (!banner) return;
+
+    let gridDiv = mangaSwiperSlide.querySelector("div[class*='grid']");
+    if (!gridDiv) return;
+
+    let div = gridDiv.getElementsByTagName("div")[0];
+    if (!div) return;
+
+    let coverLink = div.getElementsByTagName("a")[0];
+    if (!coverLink) return;
+
+    let coverImg = coverLink.getElementsByTagName("img")[0];
+    if (!coverImg) return;
+
+    let tagsDiv = div.querySelector(
+      "div[class*='flex'][class*='flex-wrap'][class*='gap-1']",
+    );
+    if (!tagsDiv) return;
+
+    let tagElements = tagsDiv.getElementsByTagName("span");
+    for (let tagElement of tagElements) {
+      let tagText = tagElement.textContent.trim();
+      if (isNsfwTag(tagText)) {
+        let { blurLevel, unblurLength, emoji } = nsfwTags[tagText];
+
+        let wrapper = document.createElement("div");
+        wrapper.style.overflow = "hidden";
+        wrapper.style.width = "100%";
+        wrapper.style.height = "100%";
+        wrapper.style.borderRadius = ".25rem";
+        coverImg.parentNode.insertBefore(wrapper, coverImg);
+        wrapper.appendChild(coverImg);
+
+        coverImg.style.filter = `blur(${blurLevel})`;
+        banner.style.filter = `blur(${blurLevel})`;
+
+        addHoverEffect(coverLink, coverImg, blurLevel, unblurLength, coverLink);
+        createOverlay(coverLink, emoji);
+
+        break;
+      }
+    }
+  }
+
   let debounceTimeout;
   const processedCards = new WeakSet();
 
   function findCards() {
     const currentURL = window.location.href;
     if (/[&?]content=.*(erotica|pornographic)/.test(currentURL)) {
+      return;
+    }
+
+    if (window.location.pathname === "/") {
+      let mangaSwiperSlides = document.getElementsByClassName("swiper-slide");
+      for (let mangaSwiperSlide of mangaSwiperSlides) {
+        if (!processedCards.has(mangaSwiperSlide)) {
+          processMangaSwiperSlide(mangaSwiperSlide);
+          processedCards.add(mangaSwiperSlide);
+        }
+      }
       return;
     }
 
