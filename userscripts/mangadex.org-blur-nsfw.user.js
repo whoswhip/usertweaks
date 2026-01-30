@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blur NSFW
 // @namespace    http://tampermonkey.net/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Applies a blur filter to manga covers tagged as NSFW on MangaDex, with hover to unblur effect.
 // @author       whoswhip
 // @match        https://mangadex.org/
@@ -36,11 +36,11 @@
 
   function addHoverEffect(
     parent,
-img,
-blurLevel,
-unblurLength,
+    img,
+    blurLevel,
+    unblurLength,
     positionElement,
-) {
+  ) {
     if (parent._hasListeners) return;
 
     parent._blurLevel = blurLevel;
