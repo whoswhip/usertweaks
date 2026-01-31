@@ -52,6 +52,11 @@
         left: -220px;
         top: -80px;
     }
+
+    .medialist.table.compact .row{
+        min-height: 0px;
+    }
+    
     .nav-unscoped.transparent {
         backdrop-filter: blur(5px);
     }
