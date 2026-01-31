@@ -150,7 +150,7 @@
         wrapper.appendChild(coverImg);
 
         coverImg.style.filter = `blur(${blurLevel})`;
-        banner.style.filter = `blur(${blurLevel})`;
+        banner.style.filter = `blur(calc(${blurLevel} * 1.5))`;
 
         addHoverEffect(coverLink, coverImg, blurLevel, unblurLength, coverLink);
         createOverlay(coverLink, emoji);
