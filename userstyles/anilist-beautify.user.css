@@ -57,6 +57,10 @@
     }
     
     .media-preview-card.small .cover .image-overlay div .plus-progress {
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(2.5px);
+    }
+    
+    .tooltip {
+        backdrop-filter: blur(2.5px);
     }
 }
