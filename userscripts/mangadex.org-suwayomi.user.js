@@ -4,8 +4,8 @@
 // @version      1.0.4
 // @description  Adds a link to a Suwayomi search for the current title
 // @author       whoswhip
-// @match        https://mangadex.org/
-// @match        https://mangadex.org/title/*
+// @match        http://mangadex.org/*
+// @match        https://mangadex.org/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=mangadex.org
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -145,6 +145,9 @@
 
 		let debounceTimer;
 		const observer = new MutationObserver(() => {
+			if (!window.location.pathname.startsWith('/title/')) {
+				return;
+			}
 			clearTimeout(debounceTimer);
 			debounceTimer = setTimeout(() => {
 				const readOrBuyElements = document.querySelectorAll('[id^="read-or-buy_"]');
