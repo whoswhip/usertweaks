@@ -44,7 +44,7 @@
 		const mainTitleElem = titleParent.querySelector('p');
 		if (!mainTitleElem) return null;
 
-		const secondaryTitleElem = titleParent.querySelector('div.font-normal');
+		const secondaryTitleElem = titleParent.querySelector('div.font-normal.line-clamp-2');
 
 		let titleText = mainTitleElem.textContent.trim();
 		let secondaryText = secondaryTitleElem ? secondaryTitleElem.textContent.trim() : null;
