@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Suwayomi Linker
 // @namespace    http://tampermonkey.net/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Adds a link to a Suwayomi search for the current title
 // @author       whoswhip
 // @match        http://mangadex.org/*
