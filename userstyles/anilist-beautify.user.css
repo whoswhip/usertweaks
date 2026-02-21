@@ -65,7 +65,8 @@
 		backdrop-filter: blur(2.5px);
 	}
 
-	.tooltip {
+	.tooltip,
+	.el-dropdown {
 		backdrop-filter: blur(2.5px);
 	}
 
